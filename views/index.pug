@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="x-ua-compatible" content="ie=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        title copyto
+        link(rel='stylesheet' href='bootstrap/css/bootstrap.min.css')
+        link(rel='stylesheet' href='css/style.css')
+    body
+        .container
+            ul.nav.nav-tabs.nav-justified(role="tablist" id="js-nav")
+                li.active
+                    a(href="#first" aria-controls="first" data-toggle="tab" role="tab") 电脑到手机
+                li
+                    a(href="#second" aria-controls="second" data-toggle="tab" role="tab") 手机到电脑
+            .tab-content.content
+                .tab-pane.active(role="tabpanel" id="first")
+                    textarea.form-control.input-text(rows="8" id="input-first" placeholder="type in, less than 600 words.")
+                    button.btn.btn-md.btn-block(id="btn-sure-first") 确定
+                    .canvas-wrap
+                        canvas(id="canvas")
+                .tab-pane(role="tabpanel" id="second")
+
+        script(src="js/jquery.min.js")
+        script(src="bootstrap/js/bootstrap.min.js")
+        script(src="js/qrcode.min.js")
+        script(src="js/main.js")

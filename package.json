@@ -2,10 +2,12 @@
   "name": "copyto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node build/index.js",
+    "build": "babel src --out-dir build",
+    "develop": "nodemon --watch src/* --watch package.json --exec babel-node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -17,8 +19,19 @@
     "url": "https://github.com/4074/copyto/issues"
   },
   "homepage": "https://github.com/4074/copyto#readme",
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "nodemon": "^1.10.2"
   }
 }
