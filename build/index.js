@@ -34,8 +34,8 @@ app.get('/', function (req, res) {
 app.get('/receive/:md5', function (req, res) {
     var time = getTimeID();
     var key = req.params.md5;
-    if (store[time] && store[time].hasOwnProperty(key)) {
-        res.send('receive.pug', { content: store[time][key] });
+    if (key && store[time] && store[time].hasOwnProperty(key)) {
+        res.render('receive.pug', { content: store[time][key] });
     }
     res.render('receive.pug', { content: 'Timeout or nothing.' });
 });
