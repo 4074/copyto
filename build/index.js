@@ -16,6 +16,8 @@ var _pug = require('pug');
 
 var _pug2 = _interopRequireDefault(_pug);
 
+var _lodash = require('lodash');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var port = process.env.PORT || 4000;
@@ -35,7 +37,7 @@ app.get('/receive/:md5', function (req, res) {
     var time = getTimeID();
     var key = req.params.md5;
     if (key && store[time] && store[time].hasOwnProperty(key)) {
-        res.render('receive.pug', { content: store[time][key] });
+        res.render('receive.pug', { content: store[time][key].replace('\n', '<br>') });
     }
     res.render('receive.pug', { content: 'Timeout or nothing.' });
 });
@@ -46,6 +48,7 @@ app.post('/send', function (req, res) {
 
     var json = { status: false };
     if (content.length <= 600) {
+        content = (0, _lodash.escape)(content);
         var key = getkey(content);
         if (!store[time]) store[time] = {};
         store[time][key] = content;
