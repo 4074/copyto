@@ -2,6 +2,7 @@ import crypto from 'crypto'
 import express from 'express'
 import bodyParser from 'body-parser'
 import pug from 'pug'
+import { escape } from 'lodash'
 
 const port = process.env.PORT || 4000
 const app = express()
@@ -20,17 +21,18 @@ app.get('/receive/:md5', function(req, res) {
     const time = getTimeID()
     const key = req.params.md5
     if (key && store[time] && store[time].hasOwnProperty(key)) {
-        res.render('receive.pug', {content: store[time][key]})
+        res.render('receive.pug', {content: store[time][key].replace('\n', '<br>')})
     }
     res.render('receive.pug', {content: 'Timeout or nothing.'})
 })
 
 app.post('/send', function(req, res) {
     const time = getTimeID()
-    const content = req.body.content
+    let content = req.body.content
 
     let json = {status: false}
     if (content.length <= 600) {
+        content = escape(content)
         const key = getkey(content)
         if (!store[time]) store[time] = {};
         store[time][key] = content
