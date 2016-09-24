@@ -46,12 +46,12 @@ app.post('/send', function (req, res) {
 
     var json = { status: false };
     if (content.length <= 600) {
-        var contentMd5 = md5(content);
+        var key = getkey(content);
         if (!store[time]) store[time] = {};
-        store[time][contentMd5] = content;
+        store[time][key] = content;
 
         json.status = true;
-        json.url = '/receive/' + contentMd5;
+        json.url = '/receive/' + key;
     }
     res.json(json);
 });
@@ -60,8 +60,8 @@ app.listen(port, function () {
     console.log('app listen on', port);
 });
 
-function md5(source) {
-    return _crypto2.default.createHash('md5').update(source).digest('base64');
+function getkey(source) {
+    return _crypto2.default.createHash('md5').update(source).digest('base64').replace(/[^\w]/g, "");
 }
 
 function getTimeID() {
